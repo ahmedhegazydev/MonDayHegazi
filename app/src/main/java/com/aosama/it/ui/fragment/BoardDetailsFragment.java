@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -13,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aosama.it.R;
+import com.aosama.it.adapters.NameListAdapter;
 import com.aosama.it.adapters.StatusListAdapter;
 import com.aosama.it.constants.Constants;
 import com.aosama.it.models.responses.BasicResponse;
@@ -63,6 +63,17 @@ public class BoardDetailsFragment extends Fragment implements
     ListView lvNames;
     @BindView(R.id.lvStatus)
     ListView lvStatus;
+    @BindView(R.id.lvAddDate)
+    ListView lvAddDate;
+    @BindView(R.id.lvStartDate)
+    ListView lvStartDate;
+    @BindView(R.id.lvMeetingTime)
+    ListView lvMeetingTime;
+    @BindView(R.id.lvMeetingUrl)
+    ListView lvMeetingUrl;
+    @BindView(R.id.lvDueDate)
+    ListView lvDueDate;
+
     private BoardDataList boardDataList = new BoardDataList();
     private Gson gson = new Gson();
     private HAdapterUsers adapterUsers;
@@ -268,6 +279,7 @@ public class BoardDetailsFragment extends Fragment implements
 
     }
 
+
     private void fillingViewsWithData(BasicResponse<BoardData> data) {
         userBoards = data.getData()
                 .getBoardData()
@@ -290,18 +302,47 @@ public class BoardDetailsFragment extends Fragment implements
                 .getTasks();
         ArrayList<String> names = new ArrayList<>();
         ArrayList<Status> status = new ArrayList<>();
+        ArrayList<String> meetingUrl = new ArrayList<>();
+        ArrayList<String> meetingTime = new ArrayList<>();
+        ArrayList<String> dateStart = new ArrayList<>();
+        ArrayList<String> dateDue = new ArrayList<>();
+        ArrayList<String> dateAdd = new ArrayList<>();
         for (int i = 0; i < taskES.size(); i++) {
             names.add(taskES.get(i).getName());
+            dateAdd.add(taskES.get(i).getAddDate());
+            dateDue.add(taskES.get(i).getDueDate());
+            dateStart.add(taskES.get(i).getStartDate());
             status.add(taskES.get(i).getStatus());
         }
-        lvNames.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout
-                .simple_list_item_1, getStringArray(names)));
+//        lvNames.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout
+//                .simple_list_item_1, getStringArray(names)));
+        NameListAdapter nameListAdapter =
+                new NameListAdapter(names, getActivity());
+        lvNames.setAdapter(nameListAdapter);
         setListViewHeightBasedOnChildren(lvNames);
         //---------------------
         StatusListAdapter statusListAdapter = new
                 StatusListAdapter(status, getActivity());
         lvStatus.setAdapter(statusListAdapter);
         statusListAdapter.notifyDataSetChanged();
+        setListViewHeightBasedOnChildren(lvStatus);
+        //-------------------------
+        nameListAdapter =
+                new NameListAdapter(dateAdd, getActivity());
+        lvAddDate.setAdapter(nameListAdapter);
+        setListViewHeightBasedOnChildren(lvAddDate);
+        //-------------------------
+        nameListAdapter =
+                new NameListAdapter(dateStart, getActivity());
+        lvStartDate.setAdapter(nameListAdapter);
+        setListViewHeightBasedOnChildren(lvStartDate);
+        //-------------------------
+        nameListAdapter =
+                new NameListAdapter(dateDue, getActivity());
+        lvDueDate.setAdapter(nameListAdapter);
+        setListViewHeightBasedOnChildren(lvDueDate);
+        //--------------------
+
 
     }
 

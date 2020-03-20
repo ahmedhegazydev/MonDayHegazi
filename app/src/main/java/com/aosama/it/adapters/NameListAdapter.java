@@ -1,8 +1,6 @@
 package com.aosama.it.adapters;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,19 +8,18 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.aosama.it.R;
-import com.aosama.it.models.responses.boards.Status;
 
 import java.util.ArrayList;
 
-public class StatusListAdapter extends ArrayAdapter<Status>
+public class NameListAdapter extends ArrayAdapter<String>
         implements View.OnClickListener {
 
     private static final String TAG = "StatusListAdapter";
     Context mContext;
-    private ArrayList<Status> dataSet;
+    private ArrayList<String> dataSet;
 
-    public StatusListAdapter(ArrayList<Status> data, Context context) {
-        super(context, R.layout.row_item_status, data);
+    public NameListAdapter(ArrayList<String> data, Context context) {
+        super(context, R.layout.row_item_name, data);
         this.dataSet = data;
         this.mContext = context;
 
@@ -35,9 +32,7 @@ public class StatusListAdapter extends ArrayAdapter<Status>
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // Get the data item for this position
-        Status status = getItem(position);
-        // Check if an existing view is being reused, otherwise inflate the view
+        String name = getItem(position);
         ViewHolder viewHolder; // view lookup cache stored in tag
 
         final View result;
@@ -46,10 +41,10 @@ public class StatusListAdapter extends ArrayAdapter<Status>
 
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.row_item_status,
+            convertView = inflater.inflate(R.layout.row_item_name,
                     parent, false);
-            viewHolder.tvStatus = convertView
-                    .findViewById(R.id.tvStaus);
+            viewHolder.tvName = convertView
+                    .findViewById(R.id.tvName);
 
             result = convertView;
 
@@ -60,9 +55,7 @@ public class StatusListAdapter extends ArrayAdapter<Status>
         }
 
 
-        viewHolder.tvStatus.setText(status.getName());
-        viewHolder.tvStatus.setBackgroundColor(Color.parseColor(status.getColor()));
-        Log.e(TAG, "getView: " + status.getColor());
+        viewHolder.tvName.setText(name);
 
         // Return the completed view to render on screen
         return convertView;
@@ -70,6 +63,6 @@ public class StatusListAdapter extends ArrayAdapter<Status>
 
     // View lookup cache
     private static class ViewHolder {
-        TextView tvStatus;
+        TextView tvName;
     }
 }
