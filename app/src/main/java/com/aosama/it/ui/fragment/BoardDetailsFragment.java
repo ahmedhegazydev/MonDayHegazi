@@ -73,7 +73,8 @@ public class BoardDetailsFragment extends Fragment implements
     ListView lvMeetingUrl;
     @BindView(R.id.lvDueDate)
     ListView lvDueDate;
-
+    @BindView(R.id.lvTeam)
+    ListView lvTeam;
     private BoardDataList boardDataList = new BoardDataList();
     private Gson gson = new Gson();
     private HAdapterUsers adapterUsers;
