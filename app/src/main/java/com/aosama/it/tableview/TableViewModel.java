@@ -46,8 +46,13 @@ public class TableViewModel {
     public static final int GIRL = 2;
 
     // Constant size for dummy data sets
-    private static final int COLUMN_SIZE = 500;
-    private static final int ROW_SIZE = 500;
+//    private static final int COLUMN_SIZE = 500;
+//    private static final int ROW_SIZE = 500;
+
+
+    // Constant size for dummy data sets
+    private static final int COLUMN_SIZE = 7;
+    private static final int ROW_SIZE = 10;
 
     // Drawables
     @DrawableRes
@@ -59,12 +64,17 @@ public class TableViewModel {
     @DrawableRes
     private final int mSadDrawable;
 
-    public TableViewModel() {
+    private String[] titlesColumns = null;
+
+    public TableViewModel(String[] titlesColumns) {
         // initialize drawables
         mBoyDrawable = R.drawable.ic_male;
         mGirlDrawable = R.drawable.ic_female;
         mHappyDrawable = R.drawable.ic_happy;
         mSadDrawable = R.drawable.ic_sad;
+
+        this.titlesColumns = titlesColumns;
+
     }
 
     @NonNull
@@ -84,14 +94,15 @@ public class TableViewModel {
     @NonNull
     private List<ColumnHeader> getRandomColumnHeaderList() {
         List<ColumnHeader> list = new ArrayList<>();
+        String title;
 
-        for (int i = 0; i < COLUMN_SIZE; i++) {
-            String title = "column " + i;
-            int nRandom = new Random().nextInt();
-            if (nRandom % 4 == 0 || nRandom % 3 == 0 || nRandom == i) {
-                title = "large column " + i;
-            }
-
+        for (int i = 0; i < titlesColumns.length; i++) {
+//            String title = "column " + i;
+//            int nRandom = new Random().nextInt();
+//            if (nRandom % 4 == 0 || nRandom % 3 == 0 || nRandom == i) {
+//                title = "large column " + i;
+//            }
+            title = titlesColumns[i];
             ColumnHeader header = new ColumnHeader(String.valueOf(i), title);
             list.add(header);
         }

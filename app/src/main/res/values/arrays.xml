@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <string-array name="array_columns" translatable="false">
+        <!--    <item>Name</item>-->
+        <item>Name</item>
+        <item>Status</item>
+        <item>Add Date	</item>
+        <item>Start Date	</item>
+        <item>Due Date	</item>
+        <item>Due Date	</item>
+        <item>Meeting Time	</item>
+    </string-array>
+
+</resources>

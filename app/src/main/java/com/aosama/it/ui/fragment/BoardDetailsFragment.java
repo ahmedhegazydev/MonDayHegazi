@@ -85,6 +85,7 @@ public class BoardDetailsFragment extends Fragment implements
     public void onViewCreated(@NonNull View view, @Nullable Bundle
             savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         init();
         gettingThePassedBoardModel();
         initializeTableView();
@@ -99,11 +100,18 @@ public class BoardDetailsFragment extends Fragment implements
     }
 
     private void initializeTableView() {
+
+        //columns titles
+        String[] titlesColumns
+                = getResources().getStringArray(R.array.array_columns);
+
+
         // Create TableView View model class  to group view models of TableView
-        TableViewModel tableViewModel = new TableViewModel();
+        TableViewModel tableViewModel = new TableViewModel(titlesColumns);
 
         // Create TableView Adapter
-        TableViewAdapter tableViewAdapter = new TableViewAdapter(tableViewModel);
+        TableViewAdapter tableViewAdapter = new
+                TableViewAdapter(tableViewModel);
 
         tableView.setAdapter(tableViewAdapter);
         tableView.setTableViewListener(new TableViewListener(tableView));
