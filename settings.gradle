@@ -1,0 +1,2 @@
+include ':app', ':tableview'
+rootProject.name='Monday'
