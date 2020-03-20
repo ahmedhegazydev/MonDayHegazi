@@ -26,10 +26,6 @@ import com.evrencoskun.tableview.adapter.recyclerview.holder.AbstractViewHolder;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-/**
- * Created by evrencoskun on 10/06/2017.
- */
-
 public interface ITableAdapter<CH, RH, C> {
 
     int getColumnHeaderItemViewType(int position);
@@ -60,10 +56,5 @@ public interface ITableAdapter<CH, RH, C> {
 
     ITableView getTableView();
 
-    /**
-     * Sets the listener for changes of data set on the TableView.
-     *
-     * @param listener The AdapterDataSetChangedListener listener.
-     */
     void addAdapterDataSetChangedListener(@NonNull AdapterDataSetChangedListener<CH, RH, C> listener);
 }

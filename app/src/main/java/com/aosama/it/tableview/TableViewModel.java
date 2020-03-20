@@ -45,7 +45,7 @@ public class TableViewModel {
     public static final int BOY = 1;
     public static final int GIRL = 2;
 
-    private static final int ROW_SIZE = 500;
+    private static int ROW_SIZE = 500;
     // Constant size for dummy data sets
     private static int COLUMN_SIZE = 500;
 
@@ -61,6 +61,21 @@ public class TableViewModel {
     private final int mSadDrawable;
 
     private String[] titlesColumns = null;
+    private String[] titlesRows = null;
+
+    public TableViewModel(String[] titlesColumns, String[] titlesRows) {
+        // initialize drawables
+        mBoyDrawable = R.drawable.ic_male;
+        mGirlDrawable = R.drawable.ic_female;
+        mHappyDrawable = R.drawable.ic_happy;
+        mSadDrawable = R.drawable.ic_sad;
+
+        this.titlesColumns = titlesColumns;
+        this.titlesRows = titlesRows;
+        COLUMN_SIZE = titlesColumns.length;
+        ROW_SIZE = titlesRows.length;
+
+    }
 
     public TableViewModel(String[] titlesColumns) {
         // initialize drawables
@@ -72,23 +87,20 @@ public class TableViewModel {
         this.titlesColumns = titlesColumns;
         COLUMN_SIZE = titlesColumns.length;
 
-
     }
 
     @NonNull
     private List<RowHeader> getSimpleRowHeaderList() {
         List<RowHeader> list = new ArrayList<>();
         for (int i = 0; i < ROW_SIZE; i++) {
-            RowHeader header = new RowHeader(String.valueOf(i), "row " + i);
+            RowHeader header = new RowHeader(String.valueOf(i),
+                    "row " + i);
             list.add(header);
         }
 
         return list;
     }
 
-    /**
-     * This is a dummy model list test some cases.
-     */
     @NonNull
     private List<ColumnHeader> getRandomColumnHeaderList() {
         List<ColumnHeader> list = new ArrayList<>();
@@ -109,9 +121,6 @@ public class TableViewModel {
         return list;
     }
 
-    /**
-     * This is a dummy model list test some cases.
-     */
     @NonNull
     private List<List<Cell>> getCellListForSortingTest() {
         List<List<Cell>> list = new ArrayList<>();

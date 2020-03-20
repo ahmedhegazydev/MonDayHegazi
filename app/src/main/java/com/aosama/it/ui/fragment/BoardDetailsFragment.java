@@ -5,13 +5,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aosama.it.R;
+import com.aosama.it.adapters.StatusListAdapter;
 import com.aosama.it.constants.Constants;
 import com.aosama.it.models.responses.BasicResponse;
 import com.aosama.it.models.responses.boards.BoardDataList;
+import com.aosama.it.models.responses.boards.Status;
+import com.aosama.it.models.responses.boards.TaskE;
 import com.aosama.it.models.responses.boards.UserBoard;
 import com.aosama.it.models.responses.nested.BoardData;
 import com.aosama.it.tableview.TableViewAdapter;
@@ -48,12 +55,21 @@ public class BoardDetailsFragment extends Fragment implements
     TableView tableView;
     @BindView(R.id.tvTeamName)
     TextView tvTeamName;
+    @BindView(R.id.llHeader)
+    LinearLayout llHeader;
+    @BindView(R.id.llBody)
+    LinearLayout llBody;
+    @BindView(R.id.lvNames)
+    ListView lvNames;
+    @BindView(R.id.lvStatus)
+    ListView lvStatus;
     private BoardDataList boardDataList = new BoardDataList();
     private Gson gson = new Gson();
     private HAdapterUsers adapterUsers;
     private List<UserBoard> userBoards = new ArrayList<>();
     private BoardDetailViewModel boardDetailViewModel = null;
     private android.app.AlertDialog dialog = null;
+    private String[] titlesColumns;
 
     public static BoardDetailsFragment newInstance() {
 
@@ -62,6 +78,41 @@ public class BoardDetailsFragment extends Fragment implements
         BoardDetailsFragment fragment = new BoardDetailsFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            // pre-condition
+            return;
+        }
+
+        int totalHeight = 0;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            listItem.measure(0, 0);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
+        listView.requestLayout();
+    }
+
+    public static String[] getStringArray(ArrayList<String> arr) {
+
+        // declaration and initialise String Array
+        String[] str = new String[arr.size()];
+
+        // ArrayList to Array Conversion
+        for (int j = 0; j < arr.size(); j++) {
+
+            // Assign each value to String array
+            str[j] = arr.get(j);
+        }
+
+        return str;
     }
 
     @Override
@@ -88,7 +139,7 @@ public class BoardDetailsFragment extends Fragment implements
 
         init();
         gettingThePassedBoardModel();
-        initializeTableView();
+//        initializeTableView();
 
         showDialog();
         fetchingData();
@@ -96,15 +147,29 @@ public class BoardDetailsFragment extends Fragment implements
         //setting an empty list to the adapter
         settingAdapter();
 
+//        settingUpTableView();
+
+
+    }
+
+    private void settingUpTableView() {
+
+        for (int i = 0; i < titlesColumns.length; i++) {
+            View v =
+                    LayoutInflater.from(getActivity())
+                            .inflate(R.layout.view_col_header, null);
+            TextView textView = v.findViewById(R.id.tvHeaderColTitle);
+            if (textView.getParent() != null) {
+                ((ViewGroup) textView.getParent()).removeView(textView); // <- fix
+            }
+            textView.setText(titlesColumns[i]);
+            llHeader.addView(textView);
+        }
+
 
     }
 
     private void initializeTableView() {
-
-        //columns titles
-        String[] titlesColumns
-                = getResources().getStringArray(R.array.array_columns);
-
 
         // Create TableView View model class  to group view models of TableView
         TableViewModel tableViewModel = new TableViewModel(titlesColumns);
@@ -216,6 +281,28 @@ public class BoardDetailsFragment extends Fragment implements
                 .getNestedBoards().get(0).getTeam().getTeamName());
 
 
+        //----------------------
+        List<TaskE> taskES
+                = data.getData().getBoardData().getNestedBoards()
+                .get(0)
+                .getTasksGroup()
+                .get(0)
+                .getTasks();
+        ArrayList<String> names = new ArrayList<>();
+        ArrayList<Status> status = new ArrayList<>();
+        for (int i = 0; i < taskES.size(); i++) {
+            names.add(taskES.get(i).getName());
+            status.add(taskES.get(i).getStatus());
+        }
+        lvNames.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout
+                .simple_list_item_1, getStringArray(names)));
+        setListViewHeightBasedOnChildren(lvNames);
+        //---------------------
+        StatusListAdapter statusListAdapter = new
+                StatusListAdapter(status, getActivity());
+        lvStatus.setAdapter(statusListAdapter);
+        statusListAdapter.notifyDataSetChanged();
+
     }
 
     private void gettingThePassedBoardModel() {
@@ -235,6 +322,11 @@ public class BoardDetailsFragment extends Fragment implements
         rvAllUsers.setLayoutManager(new LinearLayoutManager(getActivity(),
                 LinearLayoutManager.HORIZONTAL, false));
         rvAllUsers.setHasFixedSize(false);
+
+
+        //columns titles
+        titlesColumns
+                = getResources().getStringArray(R.array.array_columns);
 
     }
 
