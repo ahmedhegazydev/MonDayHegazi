@@ -45,14 +45,10 @@ public class TableViewModel {
     public static final int BOY = 1;
     public static final int GIRL = 2;
 
+    private static final int ROW_SIZE = 500;
     // Constant size for dummy data sets
-//    private static final int COLUMN_SIZE = 500;
-//    private static final int ROW_SIZE = 500;
+    private static int COLUMN_SIZE = 500;
 
-
-    // Constant size for dummy data sets
-    private static final int COLUMN_SIZE = 7;
-    private static final int ROW_SIZE = 10;
 
     // Drawables
     @DrawableRes
@@ -74,6 +70,8 @@ public class TableViewModel {
         mSadDrawable = R.drawable.ic_sad;
 
         this.titlesColumns = titlesColumns;
+        COLUMN_SIZE = titlesColumns.length;
+
 
     }
 
@@ -105,6 +103,7 @@ public class TableViewModel {
             title = titlesColumns[i];
             ColumnHeader header = new ColumnHeader(String.valueOf(i), title);
             list.add(header);
+
         }
 
         return list;

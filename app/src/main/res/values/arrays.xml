@@ -3,7 +3,7 @@
 
 
     <string-array name="array_columns" translatable="false">
-        <!--    <item>Name</item>-->
+        <item>Name</item>
         <item>Name</item>
         <item>Status</item>
         <item>Add Date	</item>
