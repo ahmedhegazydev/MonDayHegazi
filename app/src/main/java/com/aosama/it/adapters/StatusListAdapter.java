@@ -1,7 +1,6 @@
 package com.aosama.it.adapters;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,8 +55,7 @@ public class StatusListAdapter extends ArrayAdapter<Status>
         viewHolder.tvStatus.setText(status.getName());
 //        viewHolder.tvStatus.setBackgroundColor(Color.parseColor(status.getColor()));
         MyUtilis.changeColor(mContext, viewHolder.tvStatus,
-                Color.parseColor(status.getColor()
-                ));
+                status.getColor());
         Log.e(TAG, "getView: " + status.getColor());
         return convertView;
     }
