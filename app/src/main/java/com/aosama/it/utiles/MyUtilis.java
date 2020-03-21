@@ -7,6 +7,8 @@ import android.widget.EditText;
 
 import com.aosama.it.R;
 
+import org.apache.commons.lang3.StringUtils;
+
 import dmax.dialog.SpotsDialog;
 
 public class MyUtilis {
@@ -29,4 +31,11 @@ public class MyUtilis {
     }
 
 
+    public static String formateDate(String name) {
+        String formattedDate = "";
+        //2020-03-15T21:00:00.000Z
+        formattedDate = StringUtils.substringBefore(name, "T");
+        return formattedDate;
+//        return name;
+    }
 }

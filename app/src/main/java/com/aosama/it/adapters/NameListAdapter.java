@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aosama.it.R;
+import com.aosama.it.utiles.MyUtilis;
 
 import java.util.ArrayList;
 
@@ -63,9 +64,20 @@ public class NameListAdapter extends ArrayAdapter<String>
 
 
         viewHolder.tvName.setText(name);
+        viewHolder.ivComment.setVisibility(View.GONE);
+
         switch (indexCol) {
             case 1:
                 viewHolder.ivComment.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                viewHolder.tvName.setText(MyUtilis.formateDate(name));
+                break;
+            case 5:
+                viewHolder.tvName.setText(MyUtilis.formateDate(name));
+                break;
+            case 6:
+                viewHolder.tvName.setText(MyUtilis.formateDate(name));
                 break;
             default:
                 viewHolder.ivComment.setVisibility(View.GONE);

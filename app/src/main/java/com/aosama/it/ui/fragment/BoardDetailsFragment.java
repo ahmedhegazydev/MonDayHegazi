@@ -317,21 +317,23 @@ public class BoardDetailsFragment extends Fragment implements
             dateAdd.add(taskES.get(i).getAddDate());
             dateDue.add(taskES.get(i).getDueDate());
             dateStart.add(taskES.get(i).getStartDate());
+            Log.e(TAG, "fillingViewsWithData: " + taskES.get(i)
+                    .getAddDate());
             status.add(taskES.get(i).getStatus());
         }
 
         nameListAdapter =
-                new NameListAdapter(dateDue, getActivity());
+                new NameListAdapter(dateDue, getActivity(), 6);
         lvDueDate.setAdapter(nameListAdapter);
         setListViewHeightBasedOnChildren(lvDueDate);
         //-------------------------
         nameListAdapter =
-                new NameListAdapter(dateStart, getActivity());
+                new NameListAdapter(dateStart, getActivity(), 4);
         lvStartDate.setAdapter(nameListAdapter);
         setListViewHeightBasedOnChildren(lvStartDate);
         //-------------------------
         nameListAdapter =
-                new NameListAdapter(dateAdd, getActivity());
+                new NameListAdapter(dateAdd, getActivity(), 5);
         lvAddDate.setAdapter(nameListAdapter);
         setListViewHeightBasedOnChildren(lvAddDate);
         //---------------------
