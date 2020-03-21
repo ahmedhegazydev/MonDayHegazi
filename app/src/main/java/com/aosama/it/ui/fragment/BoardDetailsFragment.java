@@ -320,10 +320,10 @@ public class BoardDetailsFragment extends Fragment implements
             Log.e(TAG, "date Hoho" + taskES.get(i).getAddDate());
             status.add(taskES.get(i).getStatus());
 
-//            meetingUrl.add(taskES.get(i).getDueDate());
-//            meetingTime.add(taskES.get(i).getDueDate());
-            meetingUrl.add("");
-            meetingTime.add("");
+            meetingUrl.add(taskES.get(i).getDueDate());
+            meetingTime.add(taskES.get(i).getDueDate());
+//            meetingUrl.add("");
+//            meetingTime.add("");
         }
 
         nameListAdapter =
