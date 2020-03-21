@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -57,8 +58,6 @@ public class BoardDetailsFragment extends Fragment implements
     TextView tvTeamName;
     @BindView(R.id.llHeader)
     LinearLayout llHeader;
-    @BindView(R.id.llBody)
-    LinearLayout llBody;
     @BindView(R.id.lvNames)
     ListView lvNames;
     @BindView(R.id.lvStatus)
@@ -75,6 +74,10 @@ public class BoardDetailsFragment extends Fragment implements
     ListView lvDueDate;
     @BindView(R.id.lvTeam)
     ListView lvTeam;
+    @BindView(R.id.hScrollView)
+    HorizontalScrollView horizontalScrollView;
+
+
     private BoardDataList boardDataList = new BoardDataList();
     private Gson gson = new Gson();
     private HAdapterUsers adapterUsers;
@@ -280,6 +283,7 @@ public class BoardDetailsFragment extends Fragment implements
 
     }
 
+    private NameListAdapter nameListAdapter;
 
     private void fillingViewsWithData(BasicResponse<BoardData> data) {
         userBoards = data.getData()
@@ -315,12 +319,21 @@ public class BoardDetailsFragment extends Fragment implements
             dateStart.add(taskES.get(i).getStartDate());
             status.add(taskES.get(i).getStatus());
         }
-//        lvNames.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout
-//                .simple_list_item_1, getStringArray(names)));
-        NameListAdapter nameListAdapter =
-                new NameListAdapter(names, getActivity());
-        lvNames.setAdapter(nameListAdapter);
-        setListViewHeightBasedOnChildren(lvNames);
+
+        nameListAdapter =
+                new NameListAdapter(dateDue, getActivity());
+        lvDueDate.setAdapter(nameListAdapter);
+        setListViewHeightBasedOnChildren(lvDueDate);
+        //-------------------------
+        nameListAdapter =
+                new NameListAdapter(dateStart, getActivity());
+        lvStartDate.setAdapter(nameListAdapter);
+        setListViewHeightBasedOnChildren(lvStartDate);
+        //-------------------------
+        nameListAdapter =
+                new NameListAdapter(dateAdd, getActivity());
+        lvAddDate.setAdapter(nameListAdapter);
+        setListViewHeightBasedOnChildren(lvAddDate);
         //---------------------
         StatusListAdapter statusListAdapter = new
                 StatusListAdapter(status, getActivity());
@@ -329,22 +342,9 @@ public class BoardDetailsFragment extends Fragment implements
         setListViewHeightBasedOnChildren(lvStatus);
         //-------------------------
         nameListAdapter =
-                new NameListAdapter(dateAdd, getActivity());
-        lvAddDate.setAdapter(nameListAdapter);
-        setListViewHeightBasedOnChildren(lvAddDate);
-        //-------------------------
-        nameListAdapter =
-                new NameListAdapter(dateStart, getActivity());
-        lvStartDate.setAdapter(nameListAdapter);
-        setListViewHeightBasedOnChildren(lvStartDate);
-        //-------------------------
-        nameListAdapter =
-                new NameListAdapter(dateDue, getActivity());
-        lvDueDate.setAdapter(nameListAdapter);
-        setListViewHeightBasedOnChildren(lvDueDate);
-        //--------------------
-
-
+                new NameListAdapter(names, getActivity(), 1);
+        lvNames.setAdapter(nameListAdapter);
+        setListViewHeightBasedOnChildren(lvNames);
     }
 
     private void gettingThePassedBoardModel() {

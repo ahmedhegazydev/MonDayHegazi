@@ -5,7 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aosama.it.R;
 
@@ -15,14 +17,21 @@ public class NameListAdapter extends ArrayAdapter<String>
         implements View.OnClickListener {
 
     private static final String TAG = "StatusListAdapter";
-    Context mContext;
+    private Context mContext;
     private ArrayList<String> dataSet;
+    private int indexCol = 0;
 
     public NameListAdapter(ArrayList<String> data, Context context) {
         super(context, R.layout.row_item_name, data);
         this.dataSet = data;
         this.mContext = context;
+    }
 
+    public NameListAdapter(ArrayList<String> data, Context context, int indexCol) {
+        super(context, R.layout.row_item_name, data);
+        this.dataSet = data;
+        this.mContext = context;
+        this.indexCol = indexCol;
     }
 
     @Override
@@ -43,11 +52,9 @@ public class NameListAdapter extends ArrayAdapter<String>
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.row_item_name,
                     parent, false);
-            viewHolder.tvName = convertView
-                    .findViewById(R.id.tvName);
-
+            viewHolder.tvName = convertView.findViewById(R.id.tvName);
+            viewHolder.ivComment = convertView.findViewById(R.id.ivComment);
             result = convertView;
-
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -56,13 +63,28 @@ public class NameListAdapter extends ArrayAdapter<String>
 
 
         viewHolder.tvName.setText(name);
+        switch (indexCol) {
+            case 1:
+                viewHolder.ivComment.setVisibility(View.VISIBLE);
+                break;
+            default:
+                viewHolder.ivComment.setVisibility(View.GONE);
+                break;
+        }
+        viewHolder.ivComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mContext, "Icon clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
 
-        // Return the completed view to render on screen
+
         return convertView;
     }
 
     // View lookup cache
     private static class ViewHolder {
         TextView tvName;
+        ImageView ivComment;
     }
 }
