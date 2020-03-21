@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.aosama.it.R;
 import com.aosama.it.models.responses.boards.Status;
+import com.aosama.it.utiles.MyUtilis;
 
 import java.util.ArrayList;
 
@@ -25,7 +26,6 @@ public class StatusListAdapter extends ArrayAdapter<Status>
         super(context, R.layout.row_item_status, data);
         this.dataSet = data;
         this.mContext = context;
-
     }
 
     @Override
@@ -35,24 +35,17 @@ public class StatusListAdapter extends ArrayAdapter<Status>
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // Get the data item for this position
         Status status = getItem(position);
-        // Check if an existing view is being reused, otherwise inflate the view
         ViewHolder viewHolder; // view lookup cache stored in tag
-
         final View result;
-
         if (convertView == null) {
-
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.row_item_status,
                     parent, false);
             viewHolder.tvStatus = convertView
                     .findViewById(R.id.tvStaus);
-
             result = convertView;
-
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -61,10 +54,11 @@ public class StatusListAdapter extends ArrayAdapter<Status>
 
 
         viewHolder.tvStatus.setText(status.getName());
-        viewHolder.tvStatus.setBackgroundColor(Color.parseColor(status.getColor()));
+//        viewHolder.tvStatus.setBackgroundColor(Color.parseColor(status.getColor()));
+        MyUtilis.changeColor(mContext, viewHolder.tvStatus,
+                Color.parseColor(status.getColor()
+                ));
         Log.e(TAG, "getView: " + status.getColor());
-
-        // Return the completed view to render on screen
         return convertView;
     }
 

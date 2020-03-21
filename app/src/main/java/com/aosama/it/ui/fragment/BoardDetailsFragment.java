@@ -317,9 +317,13 @@ public class BoardDetailsFragment extends Fragment implements
             dateAdd.add(taskES.get(i).getAddDate());
             dateDue.add(taskES.get(i).getDueDate());
             dateStart.add(taskES.get(i).getStartDate());
-            Log.e(TAG, "fillingViewsWithData: " + taskES.get(i)
-                    .getAddDate());
+            Log.e(TAG, "date Hoho" + taskES.get(i).getAddDate());
             status.add(taskES.get(i).getStatus());
+
+//            meetingUrl.add(taskES.get(i).getDueDate());
+//            meetingTime.add(taskES.get(i).getDueDate());
+            meetingUrl.add("");
+            meetingTime.add("");
         }
 
         nameListAdapter =
@@ -347,6 +351,16 @@ public class BoardDetailsFragment extends Fragment implements
                 new NameListAdapter(names, getActivity(), 1);
         lvNames.setAdapter(nameListAdapter);
         setListViewHeightBasedOnChildren(lvNames);
+        //-------------------------
+        nameListAdapter =
+                new NameListAdapter(meetingTime, getActivity());
+        lvMeetingTime.setAdapter(nameListAdapter);
+        setListViewHeightBasedOnChildren(lvMeetingTime);
+        //-------------------------
+        nameListAdapter =
+                new NameListAdapter(meetingUrl, getActivity());
+        lvMeetingUrl.setAdapter(nameListAdapter);
+        setListViewHeightBasedOnChildren(lvMeetingUrl);
     }
 
     private void gettingThePassedBoardModel() {

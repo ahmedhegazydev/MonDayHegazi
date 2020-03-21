@@ -60,8 +60,10 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_corners"
                         android:gravity="center"
+                        android:maxLines="1"
                         android:padding="10dp"
                         android:text="Name"
+
                         android:textColor="@color/white"
                         android:textSize="17sp"
                         android:textStyle="normal" />
@@ -112,8 +114,10 @@
                                     android:layout_height="wrap_content"
                                     android:background="@color/dodger_blue"
                                     android:gravity="center"
+                                    android:maxLines="1"
                                     android:padding="10dp"
                                     android:text="Team"
+
                                     android:textColor="@color/white"
                                     android:textSize="17sp"
                                     android:textStyle="normal" />
@@ -143,8 +147,10 @@
                                     android:layout_height="wrap_content"
                                     android:background="@color/dodger_blue"
                                     android:gravity="center"
+                                    android:maxLines="1"
                                     android:padding="10dp"
                                     android:text="Status"
+
                                     android:textColor="@color/white"
                                     android:textSize="17sp"
                                     android:textStyle="normal" />
@@ -172,8 +178,10 @@
                                     android:layout_height="wrap_content"
                                     android:background="@color/dodger_blue"
                                     android:gravity="center"
+                                    android:maxLines="1"
                                     android:padding="10dp"
                                     android:text="Add Date"
+
                                     android:textColor="@color/white"
                                     android:textSize="17sp"
                                     android:textStyle="normal" />
@@ -200,8 +208,10 @@
                                     android:layout_height="wrap_content"
                                     android:background="@color/dodger_blue"
                                     android:gravity="center"
+                                    android:maxLines="1"
                                     android:padding="10dp"
                                     android:text="Start Date"
+
                                     android:textColor="@color/white"
                                     android:textSize="17sp"
                                     android:textStyle="normal" />
@@ -228,8 +238,10 @@
                                     android:layout_height="wrap_content"
                                     android:background="@color/dodger_blue"
                                     android:gravity="center"
+                                    android:maxLines="1"
                                     android:padding="10dp"
                                     android:text="Due Date"
+
                                     android:textColor="@color/white"
                                     android:textSize="17sp"
                                     android:textStyle="normal" />
@@ -250,12 +262,12 @@
                                 android:orientation="vertical"
                                 android:padding="0dp">
 
-
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:background="@color/dodger_blue"
-                                    android:gravity="center"
+                                    android:gravity="start"
+                                    android:maxLines="1"
                                     android:padding="10dp"
                                     android:text="Meeting URL"
                                     android:textColor="@color/white"
@@ -283,9 +295,11 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:background="@drawable/rounded_corners2"
-                                    android:gravity="center"
+                                    android:gravity="start"
+                                    android:maxLines="1"
                                     android:padding="10dp"
                                     android:text="Meeting Time"
+
                                     android:textColor="@color/white"
                                     android:textSize="17sp"
                                     android:textStyle="normal" />
